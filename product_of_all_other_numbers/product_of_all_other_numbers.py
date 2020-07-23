@@ -4,8 +4,42 @@ Returns: a List of integers
 '''
 def product_of_all_other_numbers(arr):
     # Your code here
+    """
+    The array [1, 2, 3] turns into...
+    [
+        ()      *   (2 * 3), 
+        (1)     *   (3), 
+        (1 * 2) *   ()
+    ]
 
-    pass
+    So we need to make a way to build two arrays of length n, one that looks like [1, 1, 1*2] and [2*3, 3, 1].
+    """
+    n = len(arr)
+    arr_1 = [1] * n
+    arr_2 = [1] * n
+
+    # Construct first list:
+    index = 1
+    while index < n:
+        arr_1[index] = arr_1[index-1] * arr[index-1]
+        index += 1
+
+    # Construct second list:
+    index = n - 2
+    while index > -1:
+        arr_2[index] = arr_2[index+1] * arr[index+1]
+        index -= 1
+
+    # Find product of both lists:
+    index = 0
+    return_arr = [0] * n
+    while index < n:
+        return_arr[index] = arr_1[index] * arr_2[index]
+        index += 1
+
+    return return_arr
+
+    
 
 
 if __name__ == '__main__':
